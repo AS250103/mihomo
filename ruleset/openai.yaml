@@ -56,7 +56,6 @@ payload:
   - DOMAIN,o33249.ingest.sentry.io # OpenAI 官方客户端专用的 Sentry 前端崩溃日志与错误追踪上报节点
   - DOMAIN-SUFFIX,identrust.com # IdenTrust 根证书交叉验证服务，用于客户端 TLS 证书链校验
   - DOMAIN-SUFFIX,observeit.net # 终端安全审计与网络遥测辅助域名
-  - DOMAIN-KEYWORD,openai # 匹配包含 openai 关键字的其余衍生子域名与专属云端网关
 
   # ----------------------------------------------------------------------------
   # 6. OpenAI 核心服务 IP 与实时语音/爬虫出站网段 (OpenAI IP Ranges)
