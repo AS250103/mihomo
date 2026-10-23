@@ -43,7 +43,6 @@ payload:
   - DOMAIN-SUFFIX,ads-twitter.com # X Ads 官方广告投放管理平台与转化追踪脚本域名
   - DOMAIN-SUFFIX,tellapart.com # X 旗下电商重定向广告与营销数据分析子平台域名
   - DOMAIN-SUFFIX,twitterstat.us # X 官方全球服务器运行状态监控与故障公告页面域名
-  - DOMAIN-KEYWORD,twitter # 匹配包含 twitter 关键字的其余衍生子域名与边缘认证节点
 
   # ----------------------------------------------------------------------------
   # 6. X (Twitter) 官方自治系统核心 IP 网段 (AS13414 / AS35995 / AS54888)
