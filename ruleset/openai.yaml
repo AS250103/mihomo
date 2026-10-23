@@ -1,0 +1,72 @@
+# ==============================================================================
+# Mihomo (Clash.Meta) OpenAI (ChatGPT / Sora / Codex) 分流规则集
+# 规则集类型 (behavior): classical (同时包含域名规则与 IP-CIDR 规则)
+# ==============================================================================
+
+payload:
+  # ----------------------------------------------------------------------------
+  # 1. OpenAI 与 ChatGPT 核心主站及 API 入口 (Core Domains & APIs)
+  # ----------------------------------------------------------------------------
+  - DOMAIN-SUFFIX,openai.com # OpenAI 官网、API 开放平台 (api.openai.com)、开发者文档及账号登录体系主域名
+  - DOMAIN-SUFFIX,chatgpt.com # ChatGPT 网页版、桌面客户端与移动 App 核心交互主域名
+  - DOMAIN-SUFFIX,chat.com # OpenAI 官方收购的极简主域名，自动重定向并服务于 ChatGPT 主站
+  - DOMAIN-SUFFIX,sora.com # OpenAI Sora AI 视频生成与创作平台专用主域名
+  - DOMAIN-SUFFIX,openai.org # OpenAI 镜像 API 网关与非营利组织关联接口域名 (如 api.openai.org)
+  - DOMAIN-SUFFIX,chatgpt.site # OpenAI 官方注册的 ChatGPT 备用与关联服务域名
+  - DOMAIN-SUFFIX,crixet.com # OpenAI 关联基础设施与底层技术测试服务域名
+
+  # ----------------------------------------------------------------------------
+  # 2. 静态资源、文件上传与隔离沙盒 CDN (Static Assets & User Content)
+  # ----------------------------------------------------------------------------
+  - DOMAIN-SUFFIX,oaistatic.com # OpenAI 核心静态资源 CDN，承载 ChatGPT 前端 JS/CSS 脚本、UI 图标与网页字体
+  - DOMAIN-SUFFIX,oaiusercontent.com # 用户内容与代码解释器沙盒域名，承载上传附件、DALL·E 生成图片及数据分析结果下载
+  - DOMAIN,openai.com.cdn.cloudflare.net # OpenAI 主站在 Cloudflare 全球边缘网络上的专用 CDN 加速节点
+  - DOMAIN,openaiapi-site.azureedge.net # OpenAI 开发者平台与 API 文档在微软 Azure CDN 上的静态资源节点
+  - DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net # OpenAI 后端 API 在 Azure Front Door 上的全球负载均衡入口
+  - DOMAIN,openaicomproductionae4b.blob.core.windows.net # OpenAI 生产环境在 Azure Blob Storage 上的大文件与模型资源存储节点
+  - DOMAIN,production-openaicom-storage.azureedge.net # OpenAI 生产环境静态存储与生成的媒体文件下载加速节点
+
+  # ----------------------------------------------------------------------------
+  # 3. 实时语音模式 (Advanced Voice) 与异步长连接 (WebRTC / LiveKit / WebPubSub)
+  # ----------------------------------------------------------------------------
+  - DOMAIN-SUFFIX,livekit.cloud # ChatGPT 高级语音模式 (Advanced Voice) 与实时视频对话的 WebRTC 传输核心域名
+  - DOMAIN-SUFFIX,turn.livekit.cloud # ChatGPT 实时语音通话的 TURN 中继与 NAT 穿透服务器域名 (UDP 3478 / TCP 443)
+  - DOMAIN-SUFFIX,host.livekit.cloud # ChatGPT 实时语音房间调度与媒体流主机节点域名
+  - DOMAIN-SUFFIX,webpubsub.azure.com # ChatGPT 网页端与移动端异步消息流推送 (Azure Web PubSub WebSocket) 通信域名
+
+  # ----------------------------------------------------------------------------
+  # 4. 身份认证、人机验证与安全风控 (Authentication & Security)
+  # ----------------------------------------------------------------------------
+  - DOMAIN,auth0.openai.com # OpenAI 专用 Auth0 单点登录与 OAuth 令牌签发认证中心
+  - DOMAIN-SUFFIX,openai.auth0.com # OpenAI 账号密码登录、二次验证 (MFA) 与会话校验子域名
+  - DOMAIN,cdn.auth0.com # 登录界面所需的 Auth0 认证组件脚本与品牌图标静态资源
+  - DOMAIN-SUFFIX,arkoselabs.com # OpenAI 登录、注册与高风险操作时的 FunCaptcha 旋转拼图人机验证服务
+  - DOMAIN,client-api.arkoselabs.com # Arkose Labs 人机验证挑战题加载与令牌校验接口
+  - DOMAIN,challenges.cloudflare.com # Cloudflare Turnstile 盾牌人机验证服务（解决“确认您是真人”卡盾问题）
+
+  # ----------------------------------------------------------------------------
+  # 5. 功能灰度开关 (Feature Flags)、在线客服与遥测监控 (Config & Support)
+  # ----------------------------------------------------------------------------
+  - DOMAIN-SUFFIX,oaistatsig.com # OpenAI 专用 Statsig 域名，负责向客户端下发新模型权限与新功能灰度开关
+  - DOMAIN-SUFFIX,featuregates.org # Statsig 功能门控 (Feature Gates) 接口，决定账号界面功能模块的开启与隐藏
+  - DOMAIN-SUFFIX,statsigapi.net # Statsig 客户端配置同步与 A/B 测试指标上报 API 接口
+  - DOMAIN,events.statsigapi.net # ChatGPT 客户端性能事件与功能启用状态同步节点
+  - DOMAIN-SUFFIX,intercom.io # OpenAI 帮助中心 (help.openai.com) 右下角在线客服聊天组件与工单系统
+  - DOMAIN-SUFFIX,intercomcdn.com # Intercom 在线客服界面静态资源、帮助文章图片与附件托管 CDN
+  - DOMAIN,o33249.ingest.sentry.io # OpenAI 官方客户端专用的 Sentry 前端崩溃日志与错误追踪上报节点
+  - DOMAIN-SUFFIX,identrust.com # IdenTrust 根证书交叉验证服务，用于客户端 TLS 证书链校验
+  - DOMAIN-SUFFIX,observeit.net # 终端安全审计与网络遥测辅助域名
+  - DOMAIN-KEYWORD,openai # 匹配包含 openai 关键字的其余衍生子域名与专属云端网关
+
+  # ----------------------------------------------------------------------------
+  # 6. OpenAI 核心服务 IP 与实时语音/爬虫出站网段 (OpenAI IP Ranges)
+  # 说明：OpenAI 前端主要依托 Cloudflare Anycast 与 Azure，以下为专用入口及语音/检索核心 IP，均附带 no-resolve
+  # ----------------------------------------------------------------------------
+  - IP-CIDR,24.199.123.28/32,no-resolve # OpenAI API 与早期核心网关专用入口 IPv4 地址
+  - IP-CIDR,64.23.132.171/32,no-resolve # OpenAI 后端服务与认证回调常用专用入口 IPv4 地址
+  - IP-CIDR,138.3.210.144/32,no-resolve # ChatGPT 实时语音模式 (Voice Mode) WebRTC 媒体流专用服务器节点 1
+  - IP-CIDR,168.138.215.123/32,no-resolve # ChatGPT 实时语音模式 (Voice Mode) STUN/TURN 语音打洞中继服务器节点 2
+  - IP-CIDR,23.98.142.176/28,no-resolve # OpenAI 官方公布的 ChatGPT-User (联网检索与插件调用) 核心专用 IP 段
+  - IP-CIDR,40.84.180.224/28,no-resolve # OpenAI 官方公布的 ChatGPT 实时网页浏览与 Action 调用专用 IP 段
+  - IP-CIDR,20.171.206.0/24,no-resolve # OpenAI 官方公布的 GPTBot 与 OAI-SearchBot 搜索爬虫核心 IP 网段
+  - IP-CIDR,52.230.152.0/24,no-resolve # OpenAI 在微软 Azure 上托管的模型推理与联网搜索集群核心 IP 网段
