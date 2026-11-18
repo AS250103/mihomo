@@ -1,0 +1,236 @@
+# Mihomo (Clash.Meta) 微软全系服务规则集 (behavior: classical)
+# 参考来源:
+#   - Microsoft 365 官方端点: https://learn.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges?view=o365-worldwide
+#   - Windows 11 官方端点: https://learn.microsoft.com/en-us/windows/privacy/windows-11-endpoints-non-enterprise-editions
+#   - v2fly/domain-list-community: https://github.com/v2fly/domain-list-community/blob/master/data/microsoft
+#   - 微软核心 ASN (AS8075): https://ipinfo.io/AS8075
+#
+# 使用说明:
+#   在 Mihomo 配置文件的 rule-providers 中引用时，请设置:
+#     behavior: classical
+#     format: yaml
+
+payload:
+  # ==========================================
+  # 1. 微软核心主站、统一域名与身份认证 (Entra ID / MSA)
+  # ==========================================
+  - DOMAIN-SUFFIX,cloud.microsoft # Microsoft 365 新一代统一 SaaS 服务域名
+  - DOMAIN-SUFFIX,static.microsoft # Microsoft 365 静态 CDN 资源
+  - DOMAIN-SUFFIX,usercontent.microsoft # Microsoft 365 用户内容隔离域名
+  - DOMAIN-SUFFIX,mx.microsoft # Microsoft 365 邮件交换（MX）域名
+  - DOMAIN-SUFFIX,microsoft.com # 微软官网、账户中心、技术支持与下载主站
+  - DOMAIN-SUFFIX,microsoftonline.com # Microsoft Entra ID / 商业版统一身份认证
+  - DOMAIN-SUFFIX,microsoftonline-p.com # Microsoft 365 身份认证辅助域名
+  - DOMAIN-SUFFIX,microsoftonline-p.net # Microsoft 365 身份认证与客户端配置
+  - DOMAIN-SUFFIX,msauth.net # Microsoft 身份验证脚本与登录静态资源
+  - DOMAIN-SUFFIX,msauthimages.net # Microsoft 登录页图片资源
+  - DOMAIN-SUFFIX,msftauth.net # Microsoft 身份验证备用域名
+  - DOMAIN-SUFFIX,msftauthimages.net # Microsoft 登录页备用图片资源
+  - DOMAIN-SUFFIX,msftidentity.com # Microsoft 身份认证平台（Entra ID）
+  - DOMAIN-SUFFIX,msidentity.com # Microsoft 身份服务
+  - DOMAIN-SUFFIX,phonefactor.net # Microsoft 多重身份验证（MFA）服务
+  - DOMAIN-SUFFIX,microsoftazuread-sso.com # Microsoft Entra ID 无缝单点登录（SSO）
+  - DOMAIN-SUFFIX,live.com # 微软个人账户（MSA）、Outlook.com 与 OneDrive 登录
+  - DOMAIN-SUFFIX,live.net # 微软个人账户位置与服务 API
+  - DOMAIN-SUFFIX,passport.net # 微软基础账户认证域名
+  - DOMAIN-SUFFIX,aka.ms # 微软官方短链接跳转服务
+  - DOMAIN-SUFFIX,sfx.ms # OneDrive / 微软文件下载与分享短链服务
+  - DOMAIN-SUFFIX,gfx.ms # 微软身份验证与 Office 界面图标静态资源
+  - DOMAIN-SUFFIX,s-microsoft.com # 微软商店与官网静态图片/资源 CDN
+  - DOMAIN-SUFFIX,msft.net # 微软网络基础设施域名
+  - DOMAIN-SUFFIX,msftconnecttest.com # Windows 网络连接状态指示器（NCSI）联网检测
+  - DOMAIN-SUFFIX,msftncsi.com # Windows 网络连接状态指示器（NCSI）备用检测
+
+  # ==========================================
+  # 2. Windows 系统、更新、商店、安全与 Edge 浏览器
+  # ==========================================
+  - DOMAIN-SUFFIX,windows.com # Windows 系统服务、活动提要、地图与推送
+  - DOMAIN-SUFFIX,windows.net # Windows Azure / 身份与云端基础服务
+  - DOMAIN-SUFFIX,windowsupdate.com # Windows Update 系统补丁与驱动更新下载
+  - DOMAIN,ctldl.windowsupdate.com # Windows 根证书自动更新列表（CTL）
+  - DOMAIN-SUFFIX,update.microsoft.com # Microsoft Update 系统与软件更新检查
+  - DOMAIN-SUFFIX,delivery.mp.microsoft.com # Windows 传递优化（DO）更新与商店应用分发
+  - DOMAIN,licensing.mp.microsoft.com # Windows 与 Microsoft Store 授权激活验证
+  - DOMAIN,displaycatalog.mp.microsoft.com # Microsoft Store 应用商店目录与商品信息
+  - DOMAIN,storesdk.dsx.mp.microsoft.com # Microsoft Store SDK 与商店通信接口
+  - DOMAIN,storeedgefd.dsx.mp.microsoft.com # Microsoft Store 客户端内容加载
+  - DOMAIN-SUFFIX,microsoftstore.com # 微软官方商城
+  - DOMAIN-SUFFIX,microsoftstore.com.hk # 微软香港官方商城
+  - DOMAIN-SUFFIX,microsoftuwp.com # Windows UWP 应用相关服务
+  - DOMAIN,wdcp.microsoft.com # Microsoft Defender 防病毒云端保护主节点
+  - DOMAIN,wdcpalt.microsoft.com # Microsoft Defender 防病毒云端保护备用节点
+  - DOMAIN-SUFFIX,smartscreen.microsoft.com # Microsoft Defender SmartScreen 网页与文件安全检查
+  - DOMAIN-SUFFIX,smartscreen-prod.microsoft.com # SmartScreen 生产环境安全检查服务
+  - DOMAIN,definitionupdates.microsoft.com # Microsoft Defender 病毒库定义更新
+  - DOMAIN-SUFFIX,microsoftedge.com # Microsoft Edge 浏览器服务
+  - DOMAIN-SUFFIX,microsoftedgeinsider.com # Microsoft Edge Insider 预览版渠道
+  - DOMAIN-SUFFIX,msedge.net # Microsoft Edge、Office 及 Bing 边缘路由服务
+  - DOMAIN-SUFFIX,a-msedge.net # 微软边缘网络加速域名
+  - DOMAIN-SUFFIX,c-msedge.net # 微软边缘网络加速域名
+  - DOMAIN-SUFFIX,l-msedge.net # 微软边缘网络加速域名
+  - DOMAIN-SUFFIX,s-msedge.net # 微软边缘网络加速域名
+  - DOMAIN-SUFFIX,t-msedge.net # 微软边缘网络加速域名
+  - DOMAIN-SUFFIX,events.data.microsoft.com # Windows 与 Office 诊断/遥测数据上报
+  - DOMAIN-SUFFIX,aria.microsoft.com # 微软客户端遥测与配置下发服务
+  - DOMAIN-SUFFIX,telemetry.microsoft.com # Windows 错误报告与遥测服务
+
+  # ==========================================
+  # 3. Microsoft 365 / Office / Outlook / OneDrive / Teams
+  # ==========================================
+  - DOMAIN-SUFFIX,office.com # Microsoft 365 / Office 网页版与在线服务
+  - DOMAIN-SUFFIX,office.net # Office 在线文档、CDN 与测量服务
+  - DOMAIN-SUFFIX,office365.com # Microsoft 365 / Office 365 商业与个人套件
+  - DOMAIN-SUFFIX,microsoft365.com # Microsoft 365 门户入口
+  - DOMAIN-SUFFIX,msocdn.com # Microsoft 365 / Office 前端静态资源 CDN
+  - DOMAIN-SUFFIX,o365weve.com # Office 加载项与网页扩展服务
+  - DOMAIN-SUFFIX,onenote.com # OneNote 笔记同步与网页服务
+  - DOMAIN-SUFFIX,onenote.net # OneNote 静态资源与动态磁贴 CDN
+  - DOMAIN-SUFFIX,sway.com # Microsoft Sway 在线演示文稿服务
+  - DOMAIN-SUFFIX,sway-cdn.com # Microsoft Sway 静态资源 CDN
+  - DOMAIN-SUFFIX,outlook.com # Outlook 网页邮箱与个人/企业邮件服务
+  - DOMAIN-SUFFIX,hotmail.com # Hotmail 历史邮箱域名（已并入 Outlook.com）
+  - DOMAIN-SUFFIX,outlookmobile.com # Outlook iOS/Android 移动端服务
+  - DOMAIN-SUFFIX,acompli.net # Outlook 移动端后端服务
+  - DOMAIN-SUFFIX,sharepoint.com # SharePoint Online 与商业版 OneDrive 存储
+  - DOMAIN-SUFFIX,sharepointonline.com # SharePoint Online 共享资源与组件
+  - DOMAIN-SUFFIX,onmicrosoft.com # Microsoft 365 租户默认域名
+  - DOMAIN-SUFFIX,onedrive.com # OneDrive 个人版与商业版门户及 API
+  - DOMAIN-SUFFIX,svc.ms # OneDrive / SharePoint 文件预览与分享服务
+  - DOMAIN-SUFFIX,teams.microsoft.com # Microsoft Teams 网页端与客户端核心服务
+  - DOMAIN-SUFFIX,teams.cloud.microsoft # Microsoft Teams 新一代统一域名
+  - DOMAIN-SUFFIX,microsoftteams.com # Microsoft Teams 官网与跳转域名
+  - DOMAIN-SUFFIX,lync.com # Teams / Skype for Business 实时音视频信令
+  - DOMAIN-SUFFIX,skype.com # Skype 通信与配置服务
+  - DOMAIN-SUFFIX,skypeassets.com # Skype 客户端静态资源
+  - DOMAIN-SUFFIX,yammer.com # Viva Engage（原 Yammer）企业社交网络
+  - DOMAIN-SUFFIX,powerapps.com # Microsoft Power Apps 低代码平台
+  - DOMAIN-SUFFIX,powerautomate.com # Microsoft Power Automate 自动化工作流
+  - DOMAIN-SUFFIX,powerbi.com # Microsoft Power BI 数据分析平台
+  - DOMAIN-SUFFIX,dynamics.com # Microsoft Dynamics 365 CRM/ERP 服务
+  - DOMAIN-SUFFIX,microsoftstream.com # Microsoft Stream 企业视频服务
+
+  # ==========================================
+  # 4. Bing / Copilot / MSN / 地图
+  # ==========================================
+  - DOMAIN-SUFFIX,bing.com # Bing 搜索、Microsoft Copilot 网页版与必应服务
+  - DOMAIN-SUFFIX,bing.net # Bing 静态资源与辅助域名
+  - DOMAIN,copilot.microsoft.com # Microsoft Copilot 独立网页端
+  - DOMAIN-SUFFIX,msn.com # MSN 资讯门户与 Windows 小组件内容
+  - DOMAIN-SUFFIX,virtualearth.net # Bing Maps / 必应地图切片与地理服务
+
+  # ==========================================
+  # 5. Xbox 游戏服务
+  # ==========================================
+  - DOMAIN-SUFFIX,xbox.com # Xbox 官网、商店与账户门户
+  - DOMAIN-SUFFIX,xboxlive.com # Xbox Live 联机认证、成就与游戏资源分发
+  - DOMAIN-SUFFIX,xboxservices.com # Xbox 后台核心 API 与多人联机服务
+  - DOMAIN-SUFFIX,xboxab.com # Xbox A/B 测试与配置服务
+
+  # ==========================================
+  # 6. Azure 云服务与开发者生态 (GitHub / VS Code / .NET)
+  # ==========================================
+  - DOMAIN-SUFFIX,azure.com # Microsoft Azure 云平台门户与 DevOps
+  - DOMAIN-SUFFIX,azure.net # Azure 云基础设施与管理服务
+  - DOMAIN-SUFFIX,azureedge.net # Azure CDN 内容分发网络
+  - DOMAIN-SUFFIX,azurefd.net # Azure Front Door 全球负载均衡与加速
+  - DOMAIN-SUFFIX,core.windows.net # Azure 存储（Blob/File/Table/Queue）核心域名
+  - DOMAIN-SUFFIX,cloudapp.net # Azure 云应用与虚拟机默认域名
+  - DOMAIN-SUFFIX,msecnd.net # Microsoft Azure CDN 静态资源
+  - DOMAIN-SUFFIX,aspnetcdn.com # ASP.NET / 前端库官方 CDN
+  - DOMAIN-SUFFIX,visualstudio.com # Visual Studio、Azure DevOps 与开发隧道服务
+  - DOMAIN-SUFFIX,vscode.dev # Visual Studio Code 网页版
+  - DOMAIN-SUFFIX,nuget.org # .NET NuGet 官方包管理器
+  - DOMAIN-SUFFIX,dotnet.microsoft.com # .NET 官方下载与文档
+  - DOMAIN-SUFFIX,dot.net # .NET 官方短域名
+  - DOMAIN-SUFFIX,github.com # GitHub 代码托管平台（微软子公司）
+  - DOMAIN-SUFFIX,githubusercontent.com # GitHub Raw 文件、头像与用户静态内容
+  - DOMAIN-SUFFIX,github.io # GitHub Pages 静态网站托管
+  - DOMAIN-SUFFIX,sysinternals.com # Windows Sysinternals 系统工具集
+
+  # ==========================================
+  # 7. 中国区世纪互联运营版（如需国内直连可移除或前置 DIRECT）
+  # ==========================================
+  - DOMAIN-SUFFIX,microsoftonline.cn # 世纪互联运营版 Entra ID 登录认证
+  - DOMAIN-SUFFIX,office365.cn # 世纪互联运营版 Office 365 服务
+  - DOMAIN-SUFFIX,sharepoint.cn # 世纪互联运营版 SharePoint / OneDrive
+  - DOMAIN-SUFFIX,outlook.cn # 世纪互联运营版 Outlook 邮件
+  - DOMAIN-SUFFIX,azure.cn # 世纪互联运营版 Azure 中国云
+
+  # ==========================================
+  # 8. Microsoft 365 官方 IPv4 网段 (Exchange / SharePoint / Teams / Auth)
+  # ==========================================
+  - IP-CIDR,13.107.6.152/31,no-resolve # Exchange Online / Outlook 核心服务
+  - IP-CIDR,13.107.6.171/32,no-resolve # Office Online 网页端办公
+  - IP-CIDR,13.107.6.192/32,no-resolve # Microsoft Defender / 安全与合规中心
+  - IP-CIDR,13.107.9.192/32,no-resolve # Microsoft Defender / 安全与合规中心
+  - IP-CIDR,13.107.18.10/31,no-resolve # Exchange Online / Outlook 核心服务
+  - IP-CIDR,13.107.18.15/32,no-resolve # Office Online 网页端办公
+  - IP-CIDR,13.107.128.0/22,no-resolve # Exchange Online / Outlook 核心服务
+  - IP-CIDR,13.107.136.0/22,no-resolve # SharePoint Online / OneDrive 核心服务
+  - IP-CIDR,13.107.140.6/32,no-resolve # Office Online 网页端办公
+  - IP-CIDR,20.20.32.0/19,no-resolve # Microsoft Entra ID / M365 身份认证
+  - IP-CIDR,20.190.128.0/18,no-resolve # Microsoft Entra ID / M365 身份认证
+  - IP-CIDR,20.231.128.0/19,no-resolve # Microsoft Entra ID / M365 身份认证
+  - IP-CIDR,23.103.160.0/20,no-resolve # Exchange Online / Outlook 邮件服务
+  - IP-CIDR,40.92.0.0/15,no-resolve # Exchange Online Protection 邮件安全网关
+  - IP-CIDR,40.96.0.0/13,no-resolve # Exchange Online 全球服务网段
+  - IP-CIDR,40.104.0.0/15,no-resolve # Exchange Online 全球服务网段
+  - IP-CIDR,40.107.0.0/16,no-resolve # Exchange Online Protection 邮件安全网关
+  - IP-CIDR,40.108.128.0/17,no-resolve # SharePoint Online / OneDrive 存储网段
+  - IP-CIDR,40.126.0.0/18,no-resolve # Microsoft Entra ID / M365 身份认证
+  - IP-CIDR,52.96.0.0/14,no-resolve # Exchange Online 核心服务网段
+  - IP-CIDR,52.100.0.0/14,no-resolve # Exchange Online Protection 邮件安全网关
+  - IP-CIDR,52.104.0.0/14,no-resolve # SharePoint Online / OneDrive 存储网段
+  - IP-CIDR,52.108.0.0/14,no-resolve # Office Online 网页端办公服务
+  - IP-CIDR,52.112.0.0/14,no-resolve # Microsoft Teams 音视频媒体与信令核心网段
+  - IP-CIDR,52.122.0.0/15,no-resolve # Microsoft Teams 音视频媒体与信令核心网段
+  - IP-CIDR,52.238.78.88/32,no-resolve # Exchange Online Protection 专用节点
+  - IP-CIDR,52.244.37.168/32,no-resolve # Office Online 专用节点
+  - IP-CIDR,104.47.0.0/17,no-resolve # Exchange Online Protection 邮件安全网关
+  - IP-CIDR,104.146.128.0/17,no-resolve # SharePoint Online / OneDrive 存储网段
+  - IP-CIDR,131.253.33.215/32,no-resolve # Exchange Online 专用节点
+  - IP-CIDR,132.245.0.0/16,no-resolve # Exchange Online / M365 邮件服务
+  - IP-CIDR,150.171.32.0/22,no-resolve # Exchange Online 核心服务网段
+  - IP-CIDR,150.171.40.0/22,no-resolve # SharePoint Online / OneDrive 核心服务
+  - IP-CIDR,204.79.197.215/32,no-resolve # Exchange Online 专用节点
+
+  # ==========================================
+  # 9. 微软核心 ASN (AS8075) 全球骨干 IPv4 网段 (Azure / 公共云)
+  # ==========================================
+  - IP-CIDR,13.64.0.0/11,no-resolve # 微软 AS8075 全球骨干网段（Azure / M365）
+  - IP-CIDR,20.0.0.0/11,no-resolve # 微软 AS8075 全球骨干网段（Azure 云服务）
+  - IP-CIDR,20.64.0.0/10,no-resolve # 微软 AS8075 全球骨干网段（Azure 云服务）
+  - IP-CIDR,20.192.0.0/10,no-resolve # 微软 AS8075 全球骨干网段（Azure 云服务）
+  - IP-CIDR,48.224.0.0/11,no-resolve # 微软 AS8075 全球骨干网段（Azure 云服务）
+  - IP-CIDR,52.160.0.0/11,no-resolve # 微软 AS8075 全球骨干网段（Azure 云服务）
+  - IP-CIDR,52.224.0.0/11,no-resolve # 微软 AS8075 全球骨干网段（Azure 云服务）
+  - IP-CIDR,107.32.0.0/11,no-resolve # 微软 AS8075 全球骨干网段
+  - IP-CIDR,172.128.0.0/11,no-resolve # 微软 AS8075 全球骨干网段（Azure 云服务）
+  - IP-CIDR,172.160.0.0/11,no-resolve # 微软 AS8075 全球骨干网段（Azure 云服务）
+
+  # ==========================================
+  # 10. Microsoft 365 官方 IPv6 网段
+  # ==========================================
+  - IP-CIDR6,2603:1006::/40,no-resolve # Exchange Online IPv6 网段
+  - IP-CIDR6,2603:1016::/36,no-resolve # Exchange Online IPv6 网段
+  - IP-CIDR6,2603:1026::/36,no-resolve # Exchange Online IPv6 网段
+  - IP-CIDR6,2603:1036::/36,no-resolve # Exchange Online IPv6 网段
+  - IP-CIDR6,2603:1046::/36,no-resolve # Exchange Online IPv6 网段
+  - IP-CIDR6,2603:1056::/36,no-resolve # Exchange Online IPv6 网段
+  - IP-CIDR6,2603:1027::/48,no-resolve # Microsoft Teams IPv6 网段
+  - IP-CIDR6,2603:1037::/48,no-resolve # Microsoft Teams IPv6 网段
+  - IP-CIDR6,2603:1047::/48,no-resolve # Microsoft Teams IPv6 网段
+  - IP-CIDR6,2603:1057::/48,no-resolve # Microsoft Teams IPv6 网段
+  - IP-CIDR6,2603:1061:1300::/40,no-resolve # SharePoint / OneDrive IPv6 网段
+  - IP-CIDR6,2603:1063::/38,no-resolve # Microsoft Teams IPv6 核心网段
+  - IP-CIDR6,2603:1063:2000::/38,no-resolve # Office Online IPv6 网段
+  - IP-CIDR6,2603:1063:6000::/35,no-resolve # SharePoint / OneDrive IPv6 网段
+  - IP-CIDR6,2620:1ec:6::/48,no-resolve # Microsoft Teams IPv6 网段
+  - IP-CIDR6,2620:1ec:40::/42,no-resolve # Microsoft Teams IPv6 网段
+  - IP-CIDR6,2620:1ec:8f0::/46,no-resolve # Exchange Online IPv6 网段
+  - IP-CIDR6,2620:1ec:8f8::/46,no-resolve # SharePoint / OneDrive IPv6 网段
+  - IP-CIDR6,2620:1ec:900::/46,no-resolve # Exchange Online IPv6 网段
+  - IP-CIDR6,2620:1ec:908::/46,no-resolve # SharePoint / OneDrive IPv6 网段
+  - IP-CIDR6,2a01:111:f400::/48,no-resolve # Exchange Online Protection IPv6 网段
+  - IP-CIDR6,2a01:111:f402::/48,no-resolve # SharePoint / OneDrive IPv6 网段
+  - IP-CIDR6,2a01:111:f403::/48,no-resolve # Exchange Online Protection IPv6 网段
